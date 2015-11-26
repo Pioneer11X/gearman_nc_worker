@@ -1,17 +1,18 @@
 <?php
 $worker = new GearmanWorker();
+//Need to change this and add the correct server? or is it the same server???
 $worker->addServer("119.81.61.166", "4730");
 $count = 0;
-$worker->addFunction("ebay_crawler", "get_ebay_data", $count);
+$worker->addFunction("nc_priority_crawler", "get_nc_data", $count);
 while ($worker->work());
 
-function get_ebay_data($job, &$count) {
+function get_nc_data($job, &$count) {
     $data_json = $job->workload();
     $data_array = json_decode($data_json, true);
     
     $url = $data_array['url'];
-    $id = $data_array['id'];
-    $identifier = $data_array['identifier'];
+    $item_id = $data_array['item_id'];
+    $store = $data_array['store'];
 
     
     $orig_url = $url;
@@ -41,8 +42,8 @@ function get_ebay_data($job, &$count) {
     $return['location'] = $location;
     $return['content_type'] = $content_type;
     $return['url'] = $orig_url;
-    $return['id'] = $id;
-    $return['identifier'] = $identifier;
+    $return['item_id'] = $item_id;
+    $return['store'] = $store;
 
 
     return json_encode($return);
