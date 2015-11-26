@@ -10,7 +10,7 @@ function get_nc_data($job, &$count) {
     $data_json = $job->workload();
     $data_array = json_decode($data_json, true);
     
-    $url = $data_array['url'];
+    $url = urldecode($data_array['url']);
     $item_id = $data_array['item_id'];
     $store = $data_array['store'];
 
