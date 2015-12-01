@@ -14,6 +14,7 @@ function get_nc_data($job, &$count) {
     $item_id = $data_array['item_id'];
     $store = $data_array['store'];
 
+	echo "Url: $url , ItemId: $item_id Store: $store\n";
     
     $orig_url = $url;
     $curl = curl_init();
@@ -45,6 +46,7 @@ function get_nc_data($job, &$count) {
     $return['item_id'] = $item_id;
     $return['store'] = $store;
 
+	echo "Return URl and Item Id: " . $return['url'] . "  " . $return['item_id'] . "\n";
 
     return json_encode($return);
 }
